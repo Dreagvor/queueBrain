@@ -1,0 +1,21 @@
+<div class="border-gradient text-center">
+    <div class="queue-name">
+        {{queueName}}
+    </div>
+    <ngx-qrcode
+            qrc-element-type="img"
+            [qrc-value] = "queueLink"
+            qrc-version = "3"></ngx-qrcode>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            Total: {{users.length}}
+        </div>
+        <div class="col-sm-6 text-center">
+            Current: {{currentUser}}
+        </div>
+    </div>
+    <div>
+        <button *ngIf="!author" class="btn btn-default" [disabled]="alreadyIn" (click)="enter()">Enter</button>
+        <button *ngIf="author" class="btn btn-default" (click)="push()">Push</button>
+    </div>
+</div>

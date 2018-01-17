@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading _panel-header">
+                <div class="row">
+                    <div class="col-sm-4 pull-left">
+                        <div>Managing</div>
+                    </div>
+                    <div class="col-sm-6 pull-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="qName" name="qName" [(ngModel)]="qName">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" (click)="createQueue()" type="button">New</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="selectable table table-striped table-bordered table-hover" style="table-layout: auto">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Total</th>
+                        <th>Current</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let queue of managedQueues">
+                        <td><a routerLink="/queue/{{queue.id}}">{{queue.name}}</a></td>
+                        <td>{{queue.users.length}}</td>
+                        <td>{{queue.currentUser}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading _panel-header">
+                <div>Using</div>
+            </div>
+            <table class="selectable table table-striped table-bordered table-hover" style="table-layout: auto">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Total</th>
+                        <th>Current</th>
+                        <th>Me</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let queue of usedQueues">
+                        <td><a routerLink="/queue/{{queue.id}}">{{queue.name}}</a></td>
+                        <td>{{queue.users.length}}</td>
+                        <td>{{queue.currentUser}}</td>
+                        <td>{{queue.loginedUserPosition}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

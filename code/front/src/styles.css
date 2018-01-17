@@ -1,0 +1,33 @@
+body {
+    margin: auto;
+    background: url("img/background.jpg") repeat;
+    width: 80%;
+    height: 100%;
+}
+
+p {
+    margin: 0;
+    padding: 1em;
+}
+
+.border-gradient {
+    border: none;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 20px 15px rgba(255, 255, 255, 0.8);
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+* {
+    font-family: 'Joti One', cursive;
+}

@@ -4,28 +4,71 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zoxal</groupId>
-    <artifactId>queueBrain-backend</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.zoxal.queuebrain</groupId>
+    <artifactId>queuebrain-backend</artifactId>
+    <version>1.0</version>
     <packaging>war</packaging>
+
     <properties>
-        <spring.version>4.3.0.RELEASE</spring.version>
-        <jackson.version>2.7.5</jackson.version>
-        <slf4j.version>1.8.0-alpha1</slf4j.version>
+        <project.deploy.path>/queuebrain</project.deploy.path>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <spring.version>5.0.2.RELEASE</spring.version>
+        <spring.mail.version>5.0.0.RELEASE</spring.mail.version>
+        <spring.security.version>5.0.0.RELEASE</spring.security.version>
+        <spring.data.train.version>Hopper-SR4</spring.data.train.version>
+        <jackson.version>2.9.3</jackson.version>
         <logback.version>1.2.3</logback.version>
+        <bonecp.version>0.8.0.RELEASE</bonecp.version>
+        <mysql.jdbc.version>5.1.22</mysql.jdbc.version>
+        <hibernate.version>5.2.10.Final</hibernate.version>
+        <java.mail.version>1.5.0-b01</java.mail.version>
+        <java.mail.api.version>1.5.5</java.mail.api.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Ensure that i am using the same Spring dependencies version -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- Declared required Spring data dependencies versions -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-releasetrain</artifactId>
+                <version>${spring.data.train.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Logging -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.20</version>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- JSON -->
@@ -33,13 +76,77 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-mail</artifactId>
+            <version>${spring.mail.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- Hibernate JPA -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- Datasource pooling -->
+        <dependency>
+            <groupId>com.jolbox</groupId>
+            <artifactId>bonecp</artifactId>
+            <version>${bonecp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JDBC -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.jdbc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Email integration -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>${java.mail.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${java.mail.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- javax.servlet dependencies -->
@@ -51,8 +158,9 @@
         </dependency>
     </dependencies>
 
+
     <build>
-        <finalName>QueueBrain</finalName>
+        <finalName>queuebrain</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -75,4 +183,32 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <!--<build>-->
+        <!--<finalName>${project.artifactId}-${project.version}</finalName>-->
+        <!--<pluginManagement>-->
+            <!--<plugins>-->
+                <!--&lt;!&ndash; Tomcat deploy integration &ndash;&gt;-->
+                <!--<plugin>-->
+                    <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                    <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                    <!--<version>2.2</version>-->
+                    <!--<configuration>-->
+                        <!--<server>TomcatServer</server>-->
+                        <!--<path>${project.deploy.path}</path>-->
+                        <!--<url>http://localhost:8080/manager/text/</url>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
+                <!--<plugin>-->
+                    <!--<groupId>org.apache.maven.plugins</groupId>-->
+                    <!--<artifactId>maven-war-plugin</artifactId>-->
+                    <!--<version>3.2.0</version>-->
+                    <!--<configuration>-->
+                        <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
+            <!--</plugins>-->
+        <!--</pluginManagement>-->
+    <!--</build>-->
+
 </project>

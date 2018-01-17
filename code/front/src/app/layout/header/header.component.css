@@ -1,0 +1,23 @@
+header {
+    height: 100px;
+    margin: 0 auto 50px auto;
+}
+
+.before-header {
+    height: 25px;
+}
+
+.header-logo-name {
+    font-family: 'Joti One', cursive;
+    font-size: 40px;
+    padding-left: 10px;
+}
+
+.hello {
+    font-size: 25px;
+    margin-right: 15px;
+}
+
+/*.btn-group {*/
+    /*display: inline-block;*/
+/*}*/

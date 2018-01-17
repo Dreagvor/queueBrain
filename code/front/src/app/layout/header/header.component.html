@@ -1,0 +1,19 @@
+<div class="before-header"></div>
+
+<header class="border-gradient">
+    <div class="row">
+        <div class="col-sm-1">
+            <img src="/img/logo.png" width="70px" height="70px"/>
+        </div>
+        <div class="col-sm-5 header-logo-name">
+            QueueBrain
+        </div>
+        <div class="col-sm-6 text-right">
+            <span *ngIf="!loggedOut" class="hello">Hello, {{userName}}</span>
+            <button *ngIf="loggedOut" class="btn btn-default" routerLink="/auth/login">Login</button>
+            <button *ngIf="loggedOut" class="btn btn-default" routerLink="/auth/registration">Register</button>
+            <button *ngIf="!loggedOut" class="btn btn-default" routerLink="/dashboard">Home</button>
+            <button *ngIf="!loggedOut" class="btn btn-default" (click)="logout()">Logout</button>
+        </div>
+    </div>
+</header>
