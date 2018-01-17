@@ -34,7 +34,10 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
+        console.log("Logging out");
         this.cookieService.delete('JSESSIONID');
-        this.router.navigate(["/auth/login"]);
+        this.router.navigate(["/auth/login"]).catch(e => {
+            console.log(e);
+        });
     }
 }
